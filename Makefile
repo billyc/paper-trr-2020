@@ -14,7 +14,7 @@ endif
 .RECIPEPREFIX = >
 # --------------------------------------------------
 
-build: $(shell find src/*) Makefile 
+build: $(shell find src/*) Makefile
 > rm -rf build
 > mkdir -p build
 > cd src
@@ -27,5 +27,3 @@ clean:
 > rm -rf *.out
 > rm -rf build
 .PHONY: clean
-
-
