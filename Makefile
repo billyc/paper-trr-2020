@@ -18,7 +18,7 @@ build: $(shell find src/*) Makefile
 > rm -rf build
 > mkdir -p build
 > cd src
-> pdflatex --output-directory ../build paper.tex
+> pdflatex --output-directory ../build paper.tex && pdflatex --output-directory ../build paper.tex
 
 
 clean:
