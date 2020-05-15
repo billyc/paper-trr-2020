@@ -11,6 +11,10 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \def\volumeyear{2016}
 
+%%Vancouver (numbered)
+\bibliographystyle{SageV}
+\bibliography{paper.bib}
+
 \begin{document}
 
 \runninghead{Charlton and Laudan}
@@ -132,7 +136,6 @@ Every data visualization use case is different; there is no way to anticipate ho
 
 To fulfill this requirement the software platform will need to be extensible: basic capabilities and templates will be provided, but a user with some level of coding skill should be able to create new visualizations that are not anticipated by the researchers.
 
-
 \section{Initial experiments}
 
 It is no exaggeration to state that the Javascript code library ecosystem is extremely, enormously large. Thousands of libraries and packages are available on a common centralized Javascript repository known as "NPM", and there are often multiple packages that do similar things. As a developer, one must assess and select from these packages or choose to solve a problem by writing code by hand. Of course these libraries are of varying levels of popularity and quality.
@@ -165,7 +168,7 @@ A client/server architecture was chosen for this research based on the initial e
 
 The research team authored back-end server software for file storage, user authentication, and data pre-processing. Due to space considerations, this paper does not delve into the details of those components. Suffice it to mention that the front-end communicates with them to establish what resources a user has access to, and provides an application programming interface, or API, with which to query and fetch available files and resources. The code for those servers is also open source, and may be the subject of future papers.
 
-The front-end architecture has several interacting components:
+The front-end architecture has several interacting components, described below.
 
 \subsection{"Vue" Single Page Application}
 
@@ -191,37 +194,71 @@ This currently requires ample coding skill in Javascript; it is not a system tha
 
 \section{Results: the current state of the tool}
 
-A working instance of the platform is now online and available at https://viz.vsp.tu-berlin.de. Sample datasets are uploaded, and pre-built visualizations are publicly accessible, as a demonstration of the platform's current state. There is also a user login system so that internal researchers can extend and experiment with the system, without exposing data or work-in-progress to the public.
+A working instance of the platform is now online and available at \url{viz.vsp.tu-berlin.de}. Sample datasets are uploaded, and pre-built visualizations are publicly accessible, as a demonstration of the platform's current state. There is also a user login system so that internal researchers can extend and experiment with the system, without exposing data or work-in-progress to the public.
 
-Basic user, project, and file management capabilities are operational. This includes grouping files by model run or by other user-defined tags.
+Basic user, project, and file management capabilities are operational. This includes grouping files by model run or by other user-defined tags, as can be seen in Figure~\ref{F1}.
+
+\begin{figure}
+\centering
+\includegraphics[width=3.25in]{fig-dashboard.png}
+\caption{Project dashboard}\label{F1}
+\end{figure}
+
+See the following screenshots in Figures~\ref{Fod}-~\ref{Fanim} for examples of the current state of the user interface. Note of course that the tool demos better live than in screenshots, as the whole point of this research is to develop an interactive tool.
 
 Several types of aggregate visualizations are developed:
 
 \begin{enumerate}
 
-\item[(i)] Origin/destination flows between aggregate areas, so called "spider diagrams"
-\item[(i)] Link flows, by time of day and mode
-\item[(iii)] Transit supply explorer, which displays all transit routes and allows the user to see which routes serve specific stops and links.
-\item[(iv)] Sankey diagrams, which can be used to depict changes/flows between between scenarios across multiple choices, such as shifts in mode between two scenarios (see Figure 1d)
+\item[(i)] Origin/destination flows between aggregate areas, so called "spider diagrams" (Figure~\ref{Fod})
+\item[(i)] Link flows, by time of day and mode (Figure~\ref{Flinkvols})
+\item[(iii)] Transit supply explorer, which displays all transit routes and allows the user to see which routes serve specific stops and links. (Figure~\ref{Ftransit})
+\item[(iv)] Sankey diagrams, which can be used to depict changes/flows between between scenarios across multiple choices, such as shifts in mode between two scenarios (Figure~\ref{Fsankey})
 \item[(v)] Emissions levels on a geographic hexagonal grid basis
 
 \end{enumerate}
 
+\begin{figure}
+\centering
+\includegraphics[width=3.25in]{fig-odflow.png}
+\caption{Origin/Destination flows}\label{Fod}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=3.25in]{fig-linkvols.png}
+\caption{Link volume summary}\label{Flinkvols}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=3.25in]{fig-transit.png}
+\caption{Transit depiction}\label{Ftransit}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=3.25in]{fig-sankey.png}
+\caption{Mode shift diagram}\label{Fsankey}
+\end{figure}
+
 In addition, one disaggregate animation is available:
 
 \begin{enumerate}
-\item[(i)] A vehicle flow simulation, showing individual vehicle agents in real-time on the network.
+\item[(i)] A vehicle flow simulation, showing individual vehicle agents in real-time on the network. (Figure~\ref{Fanim})
 \end{enumerate}
 
-See the following screenshots in \textit{Figure 1} for examples of the current state of the user interface. Note of course that the tool demos better live than in screenshots, as the whole point of this research is to develop an interactive tool.
-
-% ![Sample visualizations, 1a - 1f](all-figures.png)
+\begin{figure}
+\centering
+\includegraphics[width=3.25in]{fig-animation.png}
+\caption{Vehicle animation}\label{Fanim}
+\end{figure}
 
 \subsection{Workflow feedback}
 
 User interface design (UI) and user experience (UX) have their own entire fields of research. Initial prototypes of the tool simply did not meet the needs of test users. Problems included: difficult discerning which files were which; inability to efficiently use the model run tagging feature (in which a user could mark sets of files as belonging to a particular MATSim run); separate user logins causing data to be inaccesible to team members working on the same projects (resulting in everyone using a common "team" login, against best practices); private projects "leaking" onto the public website; and myriad usability bugs in the data visualizations themselves.
 
-These usability problems were eventually solved by surveying other technical websites which organize and present large amounts of data. One website in particular, Github.com, was found to be well-liked by test users and has a similar hierarchical view of data: users can belong to organizations, and both organizations and users can create projects ("repositories" on Github) which may large numbers of files.
+These usability problems were eventually solved by surveying other technical websites which organize and present large amounts of data. One website in particular, \url{Github.com}, was found to be well-liked by test users and has a similar hierarchical view of data: users can belong to organizations, and both organizations and users can create projects ("repositories" on Github) which may large numbers of files.
 
 By adopting a file, project, and user paradigm similar to that employed by Github, users were immediately more familiar and had less to learn. The current site adheres to this so closely that test users often refer to the platform as "MatHub".
 
@@ -259,288 +296,7 @@ Despite these concerns, the MATSim visualization framework is operational and is
 
 All code is available on the MATSim Github site, at \url{github.com/matsim-org/viz}.
 
-
-% TEMPLEAT STARTS HAR
-
-
-\section{Introduction}
-Many authors submitting to research journals use \LaTeXe\ to
-prepare their papers. This paper describes the
-\textsf{\journalclass} class file which can be used to convert
-articles produced with other \LaTeXe\ class files into the correct
-form for submission to \textit{SAGE Publications}.
-
-The \textsf{\journalclass} class file preserves much of the
-standard \LaTeXe\ interface so that any document which was
-produced using the standard \LaTeXe\ \textsf{article} style can
-easily be converted to work with the \textsf{\journalclassshort}
-style. However, the width of text and typesize will vary from that
-of \textsf{article.cls}; therefore, \textit{line breaks will change}
-and it is likely that displayed mathematics and tabular material
-will need re-setting.
-
-In the following sections we describe how to lay out your code to
-use \textsf{\journalclass} to reproduce much of the typographical look of
-the \textit{SAGE} journal that you wish to submit to. However, this paper is not a guide to
-using \LaTeXe\ and we would refer you to any of the many books
-available (see, for example, \cite{R1}, \cite{R2} and \cite{R3}).
-
-\section{The three golden rules}
-Before we proceed, we would like to stress \textit{three golden
-rules} that need to be followed to enable the most efficient use
-of your code at the typesetting stage:
-\begin{enumerate}
-\item[(i)] keep your own macros to an absolute minimum;
-
-\item[(ii)] as \TeX\ is designed to make sensible spacing
-decisions by itself, do \textit{not} use explicit horizontal or
-vertical spacing commands, except in a few accepted (mostly
-mathematical) situations, such as \verb"\," before a
-differential~d, or \verb"\quad" to separate an equation from its
-qualifier;
-
-\item[(iii)] follow the journal reference style.
-\end{enumerate}
-
-\section{Getting started} The \textsf{\journalclassshort} class file should run
-on any standard \LaTeXe\ installation. If any of the fonts, style
-files or packages it requires are missing from your installation,
-they can be found on the \textit{\TeX\ Collection} DVDs or downloaded from
-CTAN.
-
-\begin{figure*}
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{0pt}%
-\begin{center}
-\begin{boxedverbatim}
-\documentclass[<options>]{sagej}
-
-\begin{document}
-
-\runninghead{<Author surnames>}
-
-\title{<Initial capital only>}
-
-\author{<An Author\affilnum{1},
-Someone Else\affilnum{2} and
-Perhaps Another\affilnum{1}>}
-
-\affiliation{<\affilnum{1}First and third authors' affiliation\\
-\affilnum{2}Second author affiliation>}
-
-\corrauth{<Corresponding author's name and full postal address>}
-
-\email{<Corresponding author's email address>}
-
-\begin{abstract}
-<Text>
-\end{abstract}
-
-\keywords{<List keywords>}
-
-\maketitle
-
-\section{Introduction}
-.
-.
-.
-\end{boxedverbatim}
-\end{center}
-\caption{Example header text.\label{F1}}
-\end{figure*}
-
-\section{The article header information}
-The heading for any file using \textsf{\journalclass} is shown in
-Figure~\ref{F1}. You must select options for the trim/text area and
-the reference style of the journal you are submitting to.
-The choice of \verb+options+ are listed in Table~\ref{T1}.
-
-\begin{table}[h]
-\small\sf\centering
-\caption{The choice of options.\label{T1}}
-\begin{tabular}{lll}
-\toprule
-Option&Trim and font size&Columns\\
-\midrule
-\texttt{shortAfour}& 210 $\times$ 280 mm, 10pt& Double column\\
-\texttt{Afour} &210 $\times$ 297 mm, 10pt& Double column\\
-\texttt{MCfour} &189 $\times$ 246 mm, 10pt& Double column\\
-\texttt{PCfour} &170 $\times$ 242 mm, 10pt& Double column\\
-\texttt{Royal} &156 $\times$ 234 mm, 10pt& Single column\\
-\texttt{Crown} &7.25 $\times$ 9.5 in, 10pt&Single column\\
-\texttt{Review} & 156 $\times$ 234 mm, 12pt & Single column\\
-\bottomrule
-\end{tabular}\\[10pt]
-\begin{tabular}{ll}
-\toprule
-Option&Reference style\\
-\midrule
-\texttt{sageh}&SAGE Harvard style (author-year)\\
-\texttt{sagev}&SAGE Vancouver style (superscript numbers)\\
-\texttt{sageapa}&APA style (author-year)\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-For example, if your journal is short A4 sized, uses Times fonts and has Harvard style references then you would need\\
-{\small\verb+\documentclass[ShortAfour,times,sageh]{sagej}+}
-
-Most \textit{SAGE} journals are published using Times fonts but if for any reason you have a problem using Times you can
-easily resort to Computer Modern fonts by removing the
-\verb"times" option.
-
-\subsection{`Review' option}
-Some journals (for example, \emph{Journal of the Society for Clinical Trials}) require that
-papers are set single column and with a larger font size to help with the review process.
-If this is a requirement for the journal that you are submitting to, just add the \verb+Review+ option to the \verb+\documenclass[]{sagej}+ line.
-
-\subsection{Remarks}
-\begin{enumerate}
-\item[(i)] In \verb"\runninghead" use `\textit{et~al.}' if there
-are three or more authors.
-
-\item[(ii)] For multiple author papers please note the use of \verb"\affilnum" to
-link names and affiliations. The corresponding author details need to be included using the
-\verb+\corrauth+ and \verb+\email+ commands.
-
-\item[(iii)] For submitting a double-spaced manuscript, add
-\verb"doublespace" as an option to the documentclass line.
-
-\item[(iv)] The abstract should be capable of standing by itself,
-in the absence of the body of the article and of the bibliography.
-Therefore, it must not contain any reference citations.
-
-\item[(v)] Keywords are separated by commas.
-
-\item[(vi)] If you are submitting to a \textit{SAGE} journal that requires numbered sections (for example, IJRR), please add the command
-  \verb+\setcounter{secnumdepth}{3}+ just above the \verb+\begin{document}+ line.
-
-\end{enumerate}
-
-
-\section{The body of the article}
-
-\subsection{Mathematics} \textsf{\journalclass} makes the full
-functionality of \AmS\/\TeX\ available. We encourage the use of
-the \verb"align", \verb"gather" and \verb"multline" environments
-for displayed mathematics. \textsf{amsthm} is used for setting
-theorem-like and proof environments. The usual \verb"\newtheorem"
-command needs to be used to set up the environments for your
-particular document.
-
-\subsection{Figures and tables} \textsf{\journalclass} includes the
-\textsf{graphicx} package for handling figures.
-
-Figures are called in as follows:
-\begin{verbatim}
-\begin{figure}
-\centering
-\includegraphics{<figure name>}
-\caption{<Figure caption>}
-\end{figure}
-\end{verbatim}
-
-For further details on how to size figures, etc., with the
-\textsf{graphicx} package see, for example, \cite{R1}
-or \cite{R3}.
-
-The standard coding for a table is shown in Figure~\ref{F2}.
-
-\begin{figure}
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{0pt}%
-\begin{center}
-\begin{boxedverbatim}
-\begin{table}
-\small\sf\centering
-\caption{<Table caption.>}
-\begin{tabular}{<table alignment>}
-\toprule
-<column headings>\\
-\midrule
-<table entries
-(separated by & as usual)>\\
-<table entries>\\
-.
-.
-.\\
-\bottomrule
-\end{tabular}
-\end{table}
-\end{boxedverbatim}
-\end{center}
-\caption{Example table layout.\label{F2}}
-\end{figure}
-
-\subsection{Cross-referencing}
-The use of the \LaTeX\ cross-reference system
-for figures, tables, equations, etc., is encouraged
-(using \verb"\ref{<name>}" and \verb"\label{<name>}").
-
-\subsection{End of paper special sections}
-Depending on the requirements of the journal that you are submitting to,
-there are macros defined to typeset various special sections.
-
-The commands available are:
-\begin{verbatim}
-\begin{acks}
-To typeset an
-  "Acknowledgements" section.
-\end{acks}
-\end{verbatim}
-
-\begin{verbatim}
-\begin{biog}
-To typeset an
-  "Author biography" section.
-\end{biog}
-\end{verbatim}
-
-\begin{verbatim}
-\begin{biogs}
-To typeset an
-  "Author Biographies" section.
-\end{biogs}
-\end{verbatim}
-
-%\newpage
-
-\begin{verbatim}
-\begin{dci}
-To typeset a "Declaration of
-  conflicting interests" section.
-\end{dci}
-\end{verbatim}
-
-\begin{verbatim}
-\begin{funding}
-To typeset a "Funding" section.
-\end{funding}
-\end{verbatim}
-
-\begin{verbatim}
-\begin{sm}
-To typeset a
-  "Supplemental material" section.
-\end{sm}
-\end{verbatim}
-
-\subsection{Endnotes}
-Most \textit{SAGE} journals use endnotes rather than footnotes, so any notes should be coded as \verb+\endnote{<Text>}+.
-Place the command \verb+\theendnotes+ just above the Reference section to typeset the endnotes.
-
-To avoid any confusion for papers that use Vancouver style references,  footnotes/endnotes should be edited into the text.
-
-\subsection{References}
-Please note that the files \textsf{SageH.bst} and \textsf{SageV.bst} are included with the class file
-for those authors using \BibTeX.
-The files work in a completely standard way, and you just need to uncomment one of the lines in the below example depending on what style you require:
-\begin{verbatim}
-%%Vancouver (numbered)
-\bibliographystyle{SageV}
-\bibliography{paper.bib}
-\end{verbatim}
-and remember to add the relevant option to the \verb+\documentclass[]{sagej}+ line as listed in Table~\ref{T1}.
+% -------------------------------------------------------------
 
 \begin{acks}
 This research project is part of the National Research Programme "Big Data" (NRP 75) of the Swiss National Science Foundation.\\
@@ -549,24 +305,24 @@ Website: \url{http://www.nrp75.ch/}
 
 \begin{thebibliography}{99}
 
-\bibitem[Horni, A., Nagel, K., \& Axhausen, K. W. (Eds.). (2016)]{R2}
-Horni, A., Nagel, K., \& Axhausen, K. W. (Eds.). (2016). The multi-agent transport simulation MATSim (p. 618). London: Ubiquity Press.
+\bibitem[Horni, A., Nagel, K., \& Axhausen, K. W. (Eds.). (2016)]{R1}
+Horni, A., Nagel, K., \& Axhausen, K. W. (Eds.). (2016). \textit{The multi-agent transport simulation MATSim} (p. 618). London: Ubiquity Press.
 
-\bibitem[Strippgen, David (2016)]{R5}
+\bibitem[Strippgen, David (2016)]{R2}
 Strippgen, David (2016) \textit{OTFVis: MATSim’s Open-Source Visualizer}. In Andreas Horni, Kai Nagel, Kay W. Axhausen (Eds.): The Multi-Agent Transport Simulation MATSim: Ubiquity Press, pp. 225–234.
 
 \bibitem[Rieser, Marcel (2016)]{R3}
 Rieser, Marcel (2016) \textit{Senozon Via}. In Andreas Horni, Kai Nagel, Kay W. Axhausen (Eds.): The Multi-Agent Transport Simulation MATSim: Ubiquity Press, pp. 219–224.
 
-\bibitem[Free Software Soundation(2007)]{R1}
-Free Software Soundation(2007) \textit{GNU General Public License}, Version 3.
-URL: https://www.gnu.org/licenses/gpl.html
+\bibitem[Free Software Soundation (2007)]{R4}
+Free Software Soundation (2007) \textit{GNU General Public License}, Version 3.
+URL: www.gnu.org/licenses/gpl.html
 
-\bibitem[Satyanarayan, A., Moritz, D., Wongsuphasawat, K., and Heer, J. (2016)]{R4}
-Satyanarayan, A., Moritz, D., Wongsuphasawat, K., and Heer, J. (2016) \textit{Vega-Lite: A Grammar of Interactive Graphics}. IEEE Transactions on Visualization and Computer Graphics, Volume 23, Issue 1. DOI: https://doi.org/10.1109/TVCG.2016.2599030
+\bibitem[Satyanarayan, A., Moritz, D., Wongsuphasawat, K., and Heer, J. (2016)]{R5}
+Satyanarayan, A., Moritz, D., Wongsuphasawat, K., and Heer, J. (2016) \textit{Vega-Lite: A Grammar of Interactive Graphics}. IEEE Transactions on Visualization and Computer Graphics, Volume 23, Issue 1. DOI: doi.org/10.1109/TVCG.2016.2599030
 
 \bibitem[Wilkinson, Leland (2005)]{R6}
-Wilkinson, Leland (2005) \textit{The Grammar of Graphics}, Second Edition. Springer Press, Chicago, USA. DOI: https://doi.org/10.1007/0-387-28695-0
+Wilkinson, Leland (2005) \textit{The Grammar of Graphics}, Second Edition. Springer Press, Chicago, USA. DOI: doi.org/10.1007/0-387-28695-0
 
 \end{thebibliography}
 
