@@ -14,21 +14,27 @@ endif
 .RECIPEPREFIX = >
 # --------------------------------------------------
 
-build: $(shell find src/*) Makefile
+build: build/paper.pdf
+.PHONY: build
+
+
+build/paper.pdf: $(shell find src/*) Makefile
 > rm -rf build
 > mkdir -p build
 > cd src
+> pdflatex --output-directory ../build paper.tex
 > pdflatex --output-directory ../build paper.tex
 
 
 serve:
 > inotifywait -qrm --event modify src/* | while read file; do make; done
-.PHONY: clean
+.PHONY: serve
 
 
 clean:
-> rm -rf *.aux
-> rm -rf *.pdf
-> rm -rf *.out
-> rm -rf build
+> rm -rf src/*.aux
+> rm -rf src/*.pdf
+> rm -rf src/*.out
+> rm -rf build/*
 .PHONY: clean
+
