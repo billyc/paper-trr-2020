@@ -6,6 +6,9 @@
 
 \usepackage[colorlinks,bookmarksopen,bookmarksnumbered,citecolor=red,urlcolor=red]{hyperref}
 
+% -- to allow highlight changed sections in yellow:
+\usepackage{color,soul}
+
 \newcommand\BibTeX{{\rmfamily B\kern-.05em \textsc{i\kern-.025em b}\kern-.08em
 T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
@@ -39,7 +42,7 @@ builds a new open-source visualization platform for MATSim outputs that
 is entirely web-based. After initial experiments with many different web
 technologies, a client/server platform design emerges which leverages
 the advanced user interface capabilities of modern browsers on the
-front-end, and relies on back-end server processing for more CPU-intensive
+front-end, and relies on back-end server processing for more processor-intensive
 tasks. The initial platform is now operational and includes several
 aggregate-level visualizations including origin/destination flows,
 transit supply, and emissions levels; as well as a fully disaggregate
@@ -73,7 +76,7 @@ to complement MATSim.
 The rapid advancement of Internet browsing technologies in the last
 five years has enabled the web browser to do things much more
 "application"-like than ever before: background processing,
-three-dimensional rendering using GPU acceleration, offline
+three-dimensional rendering using \hl{graphics card (GPU)} acceleration, offline
 support, and more. The combination of these technologies and their
 standard implementations on every popular hardware type and operating system now makes the web a very compelling platform.
 
@@ -82,7 +85,7 @@ be useful for exploring and delivering results when the datasets
 are so large? Answering this question is the primary motivation for
 this research. Essentially, has the web become powerful enough for MATSim?
 
-Currently, analysis of MATSim outputs ends up in research reports, PDFs, video screen-recordings, and presentations. An online dashboard of results which a user could explore and manipulate would not only be more interactive, but might also reveal findings that the original analysts hadn't anticipated.
+Currently, analysis of MATSim outputs ends up in research reports, \hl{Adobe (PDF)} documents, video screen-recordings, and presentations. An online dashboard of results that a user could explore and manipulate would not only be more interactive, but might also reveal findings that the original analysts hadn't anticipated.
 
 \section{Requirements}
 The research team at Technische Universit\"at Berlin had several
@@ -102,25 +105,25 @@ Several specific web technologies developed and made widely available in recent 
 \item[(i)] \textbf{CSS 3} is a styling language that enables fine-grained layout and styling of individual elements on a page. CSS 3 defines in a consistent, standard way the details of elements including color, size, layout, and animation of page elements.
 \item[(ii)] \textbf{WebGL} provides in-browser support for the 3D-accelerated graphics capabilities of modern machines.
 \item[(iv)] \textbf{ECMAScript 6} is an updated (2015) version of the venerable Javascript scripting language that has been part of the web platform since the early 1990's. Recent versions of Javascript eliminate the more problematic aspects of the language and make it easier for developers to create bug-free, efficient code.
-\item[(v)] \textbf{Web Workers} are a recent (2013) addition to the web platform that allow baiun truly multi-threaded code inside a browser.
+\item[(v)] \textbf{Web Workers} are a recent (2013) addition to the web platform that allow background processing for long-running tasks. Before Web Workers, there was no way to run truly multi-threaded code inside a browser.
 
 \end{enumerate}
 
 A complication in web development is that the major web browser vendors implement these technologies on their own timelines, some much more rapidly than others. Further complicating things is the reality that end users do not always upgrade their browsers frequently (or at all). This creates a landscape where there is a technology adoption curve with a very long "tail". Thus, developers of every web site need to make a conscious decision about where to
 draw the line -- choosing necessary technologies for their site to operate correctly, while knowing that some users with older browsers will either have a sub-optimal experience or no access to the site at all.
 
-For this research, we are deliberately exploring the latest \textit{standard} web technologies, with the expectation that access to these technologies will become more and more common in the future. Thus, we are targeting the most recent versions of modern web browsers as of 2019, including Google Chrome, Mozilla Firefox,
-and Apple Safari. All three browsers fully support the above-listed technologies, and importantly, all three auto-update automatically, ensuring that most users of those browsers stay current as these technologies evolve.
+For this research, we are deliberately exploring the \textit{latest standard} web technologies, with the expectation that access to these technologies will become more and more common in the future. Thus, we are targeting the most recent versions of modern web browsers as of 2019, including Google Chrome, Mozilla Firefox,
+and Apple Safari. All three browsers fully support the above-listed technologies, and importantly, all three auto-update automatically, ensuring that most users of those browsers stay current as these technologies evolve. \hl{This does leave out older browsers such as Internet Explorer and Edge, as well as browsers with small market share. Supporting those browsers would require much more deliberate and time-consuming testing, which while not impossible, is currently out of scope. For some government users this is acknowledged as possibly problematic, since use of Internet Explorer 11 is still mandated at some agencies.}
 
 \subsection{Requirement 2: Open source}
 
 The entire project, including all front-end (browser) and back-end (server) code, must be fully open-source.
 
-No proprietary or closed licensing schemes were considered, primarily because excellent proprietary visualization packages for MATSim already exist. Creating a competing product would be duplicative and unnecessary, and would not further the research goal of determining whether web-based technology is now advanced enough to work with MATSim outputs. The goal of this research is not to replace existing, proprietary solutions, but rather to complement them.
+No proprietary or closed licensing schemes were considered, primarily because excellent proprietary visualization packages for MATSim already exist. Creating a competing product would be duplicative and unnecessary, and would not further the research goal of determining whether web-based technology is now advanced enough to work with MATSim outputs. The goal of this research is not to replace existing proprietary solutions, but rather to complement them.
 
 The software developed as part of this research is licensed entirely with the GNU General Public License version 3, commonly known as the \textit{GPL v3}\cite{R4}.
 
-This matches the license of MATSim itself. Several other open-source licenses were considered, including the MIT License and the Apache Public License, but the benefit of sharing a common license with MATSim outweighs any perceived benefits of switching to other open licenses.
+This matches the license of MATSim itself. Several other open-source licenses were considered, including the MIT License and the Apache Public License, but the benefit of sharing a common license with MATSim outweighs any perceived benefits of switching to other open licenses \hl{The main benefit of those other open licenses is compatibility with commercial software. Given its narrow scope, this research is not likely to be of interest to existing commercial vendors. Furthermore, the research team does not intend to turn this into a commercial product. Thus the GPL license is a good fit.}
 
 \subsection{Requirement 3: Use good defaults, with minimal configuration, and be opinionated}
 
@@ -158,7 +161,7 @@ After experimenting with several packages including D3, Raphael, Morris and othe
 
 \subsection{Dealing with large datasets}
 
-MATSim network files are small enough to fit in RAM, but MATSim plan files and event files can be much larger than RAM, necessitating careful consideration about how to handle them.
+MATSim network files are small enough to fit in \hl{computer memory (RAM)}, but MATSim plan files and event files can be much larger than RAM, necessitating careful consideration about how to handle them.
 
 Modern browsers allow access via API to a data storage area that is unique per hostname, i.e. http://mysite.com is allowed some storage on the local machine. Initial experiments revealed that each browser vendor implements this storage differently, with very strict limits on the absolute amount storage available, sometimes based on how much free space remains on the user's machine. It became apparent that this local browser-based storage would not be sufficient for MATSim outputs. Running a local file-server process would allow browser access to a specific folder on the machine, which might be nice for advanced analysts but violates the research goal of being fully web-based on the client end. Thus, a client-server paradigm emerges as the only truly viable alternative, and indeed this is how most websites operate today: the browser is the front-end to the heavier processing and storage tasks that happen on someone else's server. Note that "someone else's server" is usually referred to as "the cloud".
 
@@ -172,9 +175,9 @@ The front-end architecture has several interacting components, described below.
 
 \subsection{"Vue" Single Page Application}
 
-The primary framework used to build the application is known as "Vue JS" (Vue, available at vuejs.org). Vue is a framework for building interactive user interfaces on the web; essentially it provides the glue between the items a user clicks and the code that runs when they do so. Vue provides many services which allow a web page to behave more like a full-featured application, including state management, routing between different URLs, and componentization of code in a way that encourages code reuse and loose coupling. Vue depends on Javascript, which means it does not work on for users who have disabled scripting in their browser.
+The primary framework used to build the application is known as "VueJS" or Vue (available at \url{vuejs.org}). Vue is a framework for building interactive user interfaces on the web; it provides the glue between the items a user clicks and the code that runs when they do so. Vue provides many services which allow a web page to behave more like a full-featured application, including state management, routing between different URLs, and componentization of code in a way that encourages code reuse and loose coupling. Vue depends on Javascript, which means it \hl{does not work for users} who have disabled scripting in their browser.
 
-Vue is most often used to write so-called "single page applications" which are websites that behave like desktop applications. Most large, popular websites such as Github, Twitter, and Facebook all employ this paradigm, meaning the site handles page transitions and URL's as if they are all in one common namespace, and the user thinks less about visiting URLs and more about navigation through visual components to accomplish tasks. This matches our use case.
+Vue is most often used to write so-called "single page applications" which are websites that behave like desktop applications. Most large, popular websites such as Github, Twitter, and Facebook all employ this paradigm, meaning the site handles page transitions and URLs as if they are all in one common namespace, and the user thinks less about visiting URLs and more about navigation through visual components to accomplish tasks. This matches our use case.
 
 Vue components each encapsulate the three elements required for the modern web: HTML layout, Javascript code, and CSS formatting. Components only interact with each other through well-defined pathways of properties and events, which greatly improves debuggability.
 
@@ -210,11 +213,11 @@ Several types of aggregate visualizations are developed:
 
 \begin{enumerate}
 
-\item[(i)] Origin/destination flows between aggregate areas, so called "spider diagrams" (Figure~\ref{Fod})
+\item[(i)] Origin/destination flows between aggregate areas, so-called "spider diagrams" (Figure~\ref{Fod})
 \item[(i)] Link flows, by time of day and mode (Figure~\ref{Flinkvols})
 \item[(iii)] Transit supply explorer, which displays all transit routes and allows the user to see which routes serve specific stops and links. (Figure~\ref{Ftransit})
 \item[(iv)] Sankey diagrams, which can be used to depict changes/flows between between scenarios across multiple choices, such as shifts in mode between two scenarios (Figure~\ref{Fsankey})
-\item[(v)] Emissions levels on a geographic hexagonal grid basis
+\item[(v)] Emissions levels on a geographic hexagonal grid basis (Figure~\ref{Femissions})
 
 \end{enumerate}
 
@@ -242,6 +245,12 @@ Several types of aggregate visualizations are developed:
 \caption{Mode shift diagram}\label{Fsankey}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics[width=3.25in]{fig-emissions.png}
+\caption{Mode shift diagram}\label{Femissions}
+\end{figure}
+
 In addition, one disaggregate animation is available:
 
 \begin{enumerate}
@@ -258,9 +267,9 @@ In addition, one disaggregate animation is available:
 
 User interface design (UI) and user experience (UX) have their own entire fields of research. Initial prototypes of the tool simply did not meet the needs of test users. Problems included: difficult discerning which files were which; inability to efficiently use the model run tagging feature (in which a user could mark sets of files as belonging to a particular MATSim run); separate user logins causing data to be inaccesible to team members working on the same projects (resulting in everyone using a common "team" login, against best practices); private projects "leaking" onto the public website; and myriad usability bugs in the data visualizations themselves.
 
-These usability problems were eventually solved by surveying other technical websites which organize and present large amounts of data. One website in particular, \url{Github.com}, was found to be well-liked by test users and has a similar hierarchical view of data: users can belong to organizations, and both organizations and users can create projects ("repositories" on Github) which may large numbers of files.
+These usability problems were eventually solved by surveying other technical websites which organize and present large amounts of data. One website in particular, \url{Github.com}, was found to be well-liked by test users and has a similar hierarchical view of data: users can belong to organizations, and both organizations and users can create projects ("repositories" on Github) which may hold large numbers of files.
 
-By adopting a file, project, and user paradigm similar to that employed by Github, users were immediately more familiar and had less to learn. The current site adheres to this so closely that test users often refer to the platform as "MatHub".
+By adopting a project and user paradigm similar to that employed by Github, users were immediately more familiar with the site and had less to learn. The current site adheres to this so closely that test users often refer to the platform as "MatHub".
 
 \subsection{Performance}
 
@@ -270,7 +279,7 @@ Various levels of aggregation make MATsim data much easier to visualize, as is r
 
 \textbf{Preprocessing.} The traffic animation and the emissions "hex grid" visualizations both rely on back-end server processes to preprocess the raw MATSim event outputs. This takes anywhere from a few seconds to many minutes, depending on the size of the simulation that was run. The preprocessing only needs to occur once, and thereafter the results are cached and stored on the server. The UI presents a helpful "still processing" message during this stage. Unfortunately, changing some settings such as the size of the hex-grids for the emission tool means the calculations must be redone. Further work is being done to make these processes run as quickly as possible.
 
-\textbf{Map layer limitations.} The Mapbox GL mapping library allows lines, points, and polygons to be displayed on top of a base map. There seems to be a number of map elements beyond which performance becomes very slow; various techniques can be used such as aggregating elements at further-out zoom levels to get around this. Another option is to only use Mapbox GL for the base map, and to use the WebGL graphics libraries to draw large numbers of elements directly on top of the map. This is the technique used for the traffic animation, which can easily support tens of thousands of elements (all in motion!) simultaneously. For additional visualizations which have large numbers of grahical elements, more research will need to be done on layering WebGL elements on top of the base map.
+\textbf{Map layer limitations.} The Mapbox GL mapping library allows lines, points, and polygons to be displayed on top of a base map. There seems to be a number of map elements beyond which performance becomes very slow; various techniques can be used such as aggregating elements at further-out zoom levels to get around this. Another option is to use Mapbox GL only for the base map, and to use the WebGL graphics libraries to draw large numbers of elements directly on top of the map. This is the technique used for the traffic animation, which can easily support tens of thousands of elements (all in motion!) simultaneously. For additional visualizations which have large numbers of grahical elements, more research will need to be done on layering WebGL elements on top of the base map.
 
 \subsection{Mobile device support}
 
@@ -309,10 +318,10 @@ Website: \url{http://www.nrp75.ch/}
 Horni, A., Nagel, K., \& Axhausen, K. W. (Eds.). (2016). \textit{The multi-agent transport simulation MATSim} (p. 618). London: Ubiquity Press.
 
 \bibitem[Strippgen, David (2016)]{R2}
-Strippgen, David (2016) \textit{OTFVis: MATSim’s Open-Source Visualizer}. In Andreas Horni, Kai Nagel, Kay W. Axhausen (Eds.): The Multi-Agent Transport Simulation MATSim: Ubiquity Press, pp. 225–234.
+Strippgen, David (2016) \textit{OTFVis: MATSim’s Open-Source Visualizer}. In Andreas Horni, Kai Nagel, Kay W. Axhausen (Eds.): The Multi-Agent Transport Simulation MATSim: Ubiquity Press, pp. 225-–234.
 
 \bibitem[Rieser, Marcel (2016)]{R3}
-Rieser, Marcel (2016) \textit{Senozon Via}. In Andreas Horni, Kai Nagel, Kay W. Axhausen (Eds.): The Multi-Agent Transport Simulation MATSim: Ubiquity Press, pp. 219–224.
+Rieser, Marcel (2016) \textit{Senozon Via}. In Andreas Horni, Kai Nagel, Kay W. Axhausen (Eds.): The Multi-Agent Transport Simulation MATSim: Ubiquity Press, pp. 219–-224.
 
 \bibitem[Free Software Soundation (2007)]{R4}
 Free Software Soundation (2007) \textit{GNU General Public License}, Version 3.

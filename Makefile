@@ -21,6 +21,11 @@ build: $(shell find src/*) Makefile
 > pdflatex --output-directory ../build paper.tex && pdflatex --output-directory ../build paper.tex
 
 
+serve:
+> inotifywait -qrm --event modify src/* | while read file; do make; done
+.PHONY: clean
+
+
 clean:
 > rm -rf *.aux
 > rm -rf *.pdf
